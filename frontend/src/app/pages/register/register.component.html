@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="row justify-content-center align-items-center min-vh-100">
+    <div class="col-md-6">
+      <div class="text-center mb-4">
+        <i class="bi bi-mortarboard-fill text-white display-1"></i>
+        <h2 class="text-white mt-3">Join User Management</h2>
+      </div>
+      <div class="card">
+        <div class="card-header py-4">
+          <h4 class=" text-center mb-0">Create Account</h4>
+        </div>
+        <div class="card-body p-4">
+          <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" novalidate>
+            <div *ngIf="errorMessage" class="text-danger mb-3">
+              {{ errorMessage }}
+            </div>
+            <!-- <div class="mb-3">
+              <div class="input-group">
+                <span class="input-group-text bg-light border-0"><i class="bi bi-person"></i></span>
+                <input formControlName="nom" type="text" class="form-control" placeholder="Nom">
+              </div>
+              <div *ngIf="registrationForm.get('nom')?.invalid && registrationForm.get('nom')?.touched" class="text-danger">Nom requis</div>
+            </div> -->
+
+            <div class="mb-3">
+              <div class="input-group">
+                <span class="input-group-text bg-light border-0"><i class="bi bi-person"></i></span>
+                <input formControlName="username" type="text" class="form-control" placeholder="Username">
+              </div>
+              <div *ngIf="registrationForm.get('username')?.invalid && registrationForm.get('username')?.touched" class="text-danger">Username requis</div>
+            </div>
+
+            <div class="mb-3">
+              <div class="input-group">
+                <span class="input-group-text bg-light border-0"><i class="bi bi-envelope"></i></span>
+                <input formControlName="email" type="email" class="form-control" placeholder="Email">
+              </div>
+              <div *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched" class="text-danger">Email valide requis</div>
+            </div>
+
+            <div class="mb-3">
+              <div class="input-group">
+                <span class="input-group-text bg-light border-0"><i class="bi bi-lock"></i></span>
+                <input formControlName="password" type="password" class="form-control" placeholder="Mot de passe" autocomplete="off">
+              </div>
+              <div *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched" class="text-danger">Mot de passe (min 6 caractères)</div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-register w-100 mb-3" [disabled]="registrationForm.invalid">Register</button>
+
+            <div class="text-center">
+              <span class="text-muted">Already have an account?</span>
+              <a routerLink="/login" class="text-primary text-decoration-none">Login</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

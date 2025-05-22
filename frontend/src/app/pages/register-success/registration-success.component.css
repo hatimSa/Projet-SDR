@@ -1,0 +1,31 @@
+body {
+    background: linear-gradient(120deg, #2980b9, #2c3e50);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px;
+  }
+  
+  .card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 30px;
+  }
+  
+  .btn-home {
+    background: linear-gradient(to right, #2980b9, #2c3e50);
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    color: white;
+  }
+  
+  .btn-home:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  
