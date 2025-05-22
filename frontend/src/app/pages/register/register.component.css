@@ -1,0 +1,39 @@
+body {
+  background: linear-gradient(120deg, #2980b9, #2c3e50);
+  height: 100vh;
+}
+.card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+.card-header {
+  background: linear-gradient(to right, #2980b9, #2c3e50);
+  border-radius: 15px 15px 0 0 !important;
+}
+.form-control {
+  border-radius: 10px;
+  padding: 12px;
+}
+.btn-register {
+  padding: 12px;
+  border-radius: 10px;
+  background: linear-gradient(to right, #2980b9, #2c3e50);
+  border: none;
+  transition: all 0.3s ease;
+}
+.btn-register:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+
+/* Exemple de style pour les messages d'erreur */
+.text-danger {
+  font-size: 0.875rem;
+  color: #f44336;
+}
+
+.input-group-text {
+  background-color: #f1f1f1;
+}

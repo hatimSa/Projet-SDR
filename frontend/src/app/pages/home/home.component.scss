@@ -1,0 +1,30 @@
+/* home.component.css */
+body {
+    background: linear-gradient(120deg, #2980b9, #2c3e50);
+    color: white;
+  }
+  
+  .hero {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .btn-custom {
+    background: linear-gradient(to right, #2980b9, #2c3e50);
+    border: none;
+    border-radius: 10px;
+    padding: 12px 20px;
+    transition: all 0.3s ease;
+    color: white;
+  }
+  
+  .btn-custom:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  }
+  
+
+  
