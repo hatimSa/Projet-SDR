@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="row justify-content-center align-items-center min-vh-100">
+      <div class="col-md-6 col-lg-4">
+        <div class="text-center mb-4">
+          <i class="bi bi-mortarboard-fill text-white display-1"></i>
+          <h2 class="text-white mt-3">User Management</h2>
+        </div>
+        <div class="card">
+          <div class="card-header py-4">
+            <h4 class="text-white text-center mb-0">Welcome Back!</h4>
+          </div>
+          <div class="card-body p-4">
+            <div *ngIf="error" class="text-danger mb-3">
+              {{ error }}
+            </div>
+
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+              <div class="mb-4">
+                <div class="input-group">
+                  <span class="input-group-text bg-light border-0">
+                    <i class="bi bi-person"></i>
+                  </span>
+                  <input type="username" class="form-control" formControlName="username" placeholder="Username" required>
+                </div>
+              </div>
+              <div class="mb-4">
+                <div class="input-group">
+                  <span class="input-group-text bg-light border-0">
+                    <i class="bi bi-lock"></i>
+                  </span>
+                  <input type="password" class="form-control" formControlName="password" placeholder="Password" required>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary btn-login w-100 mb-3">Login</button>
+            </form>
+
+            <div class="text-center">
+              <span class="text-muted">Don't have an account?</span>
+              <a routerLink="/register" class="text-primary text-decoration-none">Register</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
