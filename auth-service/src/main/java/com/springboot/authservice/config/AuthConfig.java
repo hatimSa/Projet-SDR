@@ -14,12 +14,24 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.List;
+
 @Configuration
 @EnableWebSecurity
 public class AuthConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.cors().and().csrf().disable()
+        return http.cors(
+                        (cors -> cors
+                                .configurationSource(request -> {
+                                    var corsConfig = new org.springframework.web.cors.CorsConfiguration();
+                                    corsConfig.setAllowedOrigins(List.of("http://localhost:4200"));
+                                    corsConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+                                    corsConfig.setAllowedHeaders(List.of("*"));
+                                    corsConfig.setAllowCredentials(true);
+                                    return corsConfig;
+                                }))
+                ).csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/v1/auth/**").permitAll()
                 .and()
@@ -45,16 +57,5 @@ public class AuthConfig {
                 "/swagger-resources/**",
                 "/swagger-ui/**",
                 "/v3/api-docs/**");
-    }
-
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(@NonNull CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedMethods("*");
-            }
-        };
     }
 }
