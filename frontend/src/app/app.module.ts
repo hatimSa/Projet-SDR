@@ -17,6 +17,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AdminNavbarComponent } from './components/admin/navbar/navbar.component';
 import { UserNavbarComponent } from './components/user/navbar/navbar.component';
 
+
+
 // Import du profil standalone
 import { ProfilComponent } from './components/user/profil/profil.component';
 
@@ -27,7 +29,7 @@ import { ProfilComponent } from './components/user/profil/profil.component';
     LoginComponent,
     RegisterComponent,
     RegistrationSuccessComponent,
-    UserDashboardComponent
+    UserDashboardComponent, AdminNavbarComponent
     // Plus aucune navbar ici car standalone
   ],
   imports: [
@@ -35,8 +37,8 @@ import { ProfilComponent } from './components/user/profil/profil.component';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ProfilComponent,       // standalone component
-    AdminNavbarComponent,UserNavbarComponent   ],
+    ProfilComponent,UserNavbarComponent     // standalone component
+      ],
   providers: [],
   bootstrap: [AppComponent]
 })
