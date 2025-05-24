@@ -5,6 +5,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { RegistrationSuccessComponent } from './components/register-success/registration-success.component';
 import { ProfilComponent } from './components/user/profil/profil.component';
+import { UserDashboardComponent } from './components/user/user-dashboard/user-dashboard.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },  // redirection racine vers home
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'register-success', component: RegistrationSuccessComponent },
   { path: 'profil', component: ProfilComponent },
+  { path: 'user-dashboard', component: UserDashboardComponent },
   { path: '**', redirectTo: 'home' }  // fallback vers home pour routes inconnues
 ];
 

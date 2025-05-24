@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserNavbarComponent } from '../../user/navbar/navbar.component';  // importer la navbar admin
 
 @Component({
   selector: 'app-profil',
   standalone: true,
-  imports: [ReactiveFormsModule],  // importer ReactiveFormsModule ici
+  imports: [ReactiveFormsModule, UserNavbarComponent],  // ajouter AdminNavbarComponent ici
   templateUrl: './profil.component.html',
   styleUrls: ['./profil.component.scss']
 })
