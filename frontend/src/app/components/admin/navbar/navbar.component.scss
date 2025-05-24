@@ -1,0 +1,14 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 100vh;
+  background-color: #343a40; // ou la couleur que tu veux
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.nav-link.active {
+  background-color: #495057 !important;
+}
