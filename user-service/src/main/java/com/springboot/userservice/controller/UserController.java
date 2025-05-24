@@ -18,7 +18,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/user")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
     private final UserService userService;
     private final ModelMapper modelMapper;

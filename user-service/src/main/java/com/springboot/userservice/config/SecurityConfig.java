@@ -23,7 +23,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.cors().and().csrf().disable()
+        return http.csrf().disable()
                 .authorizeRequests()
                 .anyRequest().permitAll()
                 .and()
@@ -41,16 +41,5 @@ public class SecurityConfig {
                 "/swagger-resources/**",
                 "/swagger-ui/**",
                 "/v3/api-docs/**");
-    }
-
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(@NonNull CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedMethods("*");
-            }
-        };
     }
 }
