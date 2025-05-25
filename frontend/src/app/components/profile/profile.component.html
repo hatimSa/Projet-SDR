@@ -1,0 +1,63 @@
+<div class="container">
+  <h1>Bienvenue, {{ profileForm.get('userDetails.firstName')?.value }} !</h1>
+
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <div class="form-group">
+        <label>Nom d'utilisateur :</label>
+        <input type="text" formControlName="username" class="form-control" placeholder="Nom d'utilisateur" />
+      </div>
+
+      <div class="form-group">
+        <label>Email :</label>
+        <input type="email" formControlName="email" class="form-control" placeholder="Email" />
+      </div>
+
+      <div formGroupName="userDetails">
+
+        <div class="form-group">
+          <label>Prénom :</label>
+          <input type="text" formControlName="firstName" class="form-control" placeholder="Prénom" />
+        </div>
+
+        <div class="form-group">
+          <label>Nom :</label>
+          <input type="text" formControlName="lastName" class="form-control" placeholder="Nom" />
+        </div>
+
+        <div class="form-group">
+          <label>Téléphone :</label>
+          <input type="text" formControlName="phoneNumber" class="form-control" placeholder="+212 6 xxx xxxx" />
+        </div>
+
+        <div class="form-group">
+          <label>Pays :</label>
+          <input type="text" formControlName="country" class="form-control" placeholder="Pays" />
+        </div>
+
+        <div class="form-group">
+          <label>Ville :</label>
+          <input type="text" formControlName="city" class="form-control" placeholder="Ville" />
+        </div>
+
+        <div class="form-group">
+          <label>Adresse :</label>
+          <input type="text" formControlName="address" class="form-control" placeholder="Adresse" />
+        </div>
+
+        <div class="form-group">
+          <label>Code postal :</label>
+          <input type="text" formControlName="postalCode" class="form-control" placeholder="Code postal" />
+        </div>
+
+        <div class="form-group">
+          <label>À propos de moi :</label>
+          <textarea formControlName="aboutMe" class="form-control" rows="3" placeholder="À propos de moi"></textarea>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-success">Enregistrer</button>
+    </div>
+  </form>
+</div>
