@@ -10,6 +10,7 @@ import { filter } from 'rxjs/operators';
 export class AppComponent {
   showUserNavbar = false;
   showAdminNavbar = false;
+  title = 'gestion_user';
 
   constructor(private router: Router) {
     this.router.events.pipe(
