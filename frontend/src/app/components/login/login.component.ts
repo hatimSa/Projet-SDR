@@ -34,7 +34,7 @@ export class LoginComponent {
           console.log("Connecté", data);
           this.error = null;
 
-          this.router.navigate(['/home']);
+          this.router.navigate(['/admin/users']);
         },
         error: err => {
           console.error("Erreur de connexion", err);

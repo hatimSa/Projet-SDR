@@ -11,6 +11,10 @@ import { RegistrationSuccessComponent } from './components/register-success/regi
 import { ProfileComponent } from './components/profile/profile.component';
 import { AdminNavbarComponent } from './components/admin/navbar/navbar.component';
 import { UserDashboardComponent } from './components/user/user-dashboard/user-dashboard.component';
+import {UserNavbarComponent} from "./components/user/navbar/navbar.component";
+import {UserListComponent} from "./components/admin/user-list/user-list.component";
+import {UserAddComponent} from "./components/admin/user-add/user-add.component";
+import {UserEditComponent} from "./components/admin/user-edit/user-edit.component";
 
 @NgModule({
   declarations: [
@@ -19,7 +23,10 @@ import { UserDashboardComponent } from './components/user/user-dashboard/user-da
     LoginComponent,
     RegisterComponent,
     RegistrationSuccessComponent,
-    UserDashboardComponent
+    UserDashboardComponent,
+    UserListComponent,
+    UserAddComponent,
+    UserEditComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +34,8 @@ import { UserDashboardComponent } from './components/user/user-dashboard/user-da
     ReactiveFormsModule,
     HttpClientModule,
     ProfileComponent,
-    AdminNavbarComponent
+    AdminNavbarComponent,
+    UserNavbarComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
