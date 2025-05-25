@@ -51,11 +51,27 @@ export class UserService {
     return this.http.get<User>(`${this.baseUrl}/getUserById/${id}`, { headers });
   }
 
-  updateUser(id: string, user: User): Observable<any> {
+  updateUser(id: string, user: User, file?: File): Observable<any> {
     const headers = this.getAuthHeaders();
     if (!headers) return of({ error: 'No token found' });
 
-    return this.http.put(`${this.baseUrl}/update`, user, { headers }).pipe(
+    const formData = new FormData();
+
+    // Append user JSON as blob (stringified)
+    const userJson = JSON.stringify(user);
+    const userBlob = new Blob([userJson], { type: 'application/json' });
+    formData.append('request', userBlob);
+
+    // Append file if provided
+    if (file) {
+      formData.append('file', file);
+    }
+
+    // Merge auth headers except Content-Type (let browser set it)
+    // Note: We must clone headers and delete Content-Type if present
+    const updatedHeaders = headers.delete('Content-Type');
+
+    return this.http.put(`${this.baseUrl}/update`, formData, { headers: updatedHeaders }).pipe(
       catchError(error => {
         console.error('Error updating user:', error);
         return of({ error: error.message || 'Unknown error' });
@@ -73,5 +89,26 @@ export class UserService {
         return of({ error: error.message || 'Unknown error' });
       })
     );
+  }
+
+  getCurrentUserProfile(): Observable<User> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    return this.http.get<User>(`${this.baseUrl}/profile`, { headers });
+  }
+
+  updateUserProfile(details: any, file?: File): Observable<any> {
+    const formData = new FormData();
+    const jsonBlob = new Blob([JSON.stringify(details)], { type: 'application/json' });
+    formData.append('request', jsonBlob);
+    if (file) formData.append('file', file, file.name);
+
+    const headers = this.getAuthHeaders();
+    if (!headers) return throwError(() => new Error('No token found'));
+
+    return this.http.put(`${this.baseUrl}/update`, formData, { headers });
   }
 }
