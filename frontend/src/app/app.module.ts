@@ -8,12 +8,9 @@ import { RegisterComponent } from './components/register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RegistrationSuccessComponent } from './components/register-success/registration-success.component';
-import { ProfileComponent } from './components/profile/profile.component';
+import { ProfilComponent } from './components/user/profil/profil.component';
 import { NavbarComponent } from './components/admin/navbar/navbar.component';
 import { UserDashboardComponent } from './components/user/user-dashboard/user-dashboard.component';
-import {UserListComponent} from "./components/admin/user-list/user-list.component";
-import {UserAddComponent} from "./components/admin/user-add/user-add.component";
-import {UserEditComponent} from "./components/admin/user-edit/user-edit.component";
 
 @NgModule({
   declarations: [
@@ -23,17 +20,14 @@ import {UserEditComponent} from "./components/admin/user-edit/user-edit.componen
     RegisterComponent,
     RegistrationSuccessComponent,
     NavbarComponent,
-    UserDashboardComponent,
-    UserListComponent,
-    UserAddComponent,
-    UserEditComponent
+    UserDashboardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ProfileComponent
+    ProfilComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
