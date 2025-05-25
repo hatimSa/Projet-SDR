@@ -8,7 +8,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RegistrationSuccessComponent } from './components/register-success/registration-success.component';
-import { ProfilComponent } from './components/user/profil/profil.component';
+import { ProfileComponent } from './components/profile/profile.component';
 import { NavbarComponent } from './components/admin/navbar/navbar.component';
 import { UserDashboardComponent } from './components/user/user-dashboard/user-dashboard.component';
 import {UserListComponent} from "./components/admin/user-list/user-list.component";
@@ -33,7 +33,7 @@ import {UserEditComponent} from "./components/admin/user-edit/user-edit.componen
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ProfilComponent
+    ProfileComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
