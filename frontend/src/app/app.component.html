@@ -1,6 +1,7 @@
 <div class="layout">
-  <aside class="sidebar" *ngIf="showNavbar">
-    <app-navbar></app-navbar>
+  <aside class="sidebar">
+    <app-admin-navbar *ngIf="showAdminNavbar"></app-admin-navbar>
+    <app-user-navbar *ngIf="showUserNavbar"></app-user-navbar>
   </aside>
   <main class="main-content">
     <router-outlet></router-outlet>
