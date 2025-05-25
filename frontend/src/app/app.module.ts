@@ -8,8 +8,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RegistrationSuccessComponent } from './components/register-success/registration-success.component';
-import { ProfilComponent } from './components/user/profil/profil.component';
-import { NavbarComponent } from './components/admin/navbar/navbar.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { AdminNavbarComponent } from './components/admin/navbar/navbar.component';
 import { UserDashboardComponent } from './components/user/user-dashboard/user-dashboard.component';
 
 @NgModule({
@@ -19,7 +19,6 @@ import { UserDashboardComponent } from './components/user/user-dashboard/user-da
     LoginComponent,
     RegisterComponent,
     RegistrationSuccessComponent,
-    NavbarComponent,
     UserDashboardComponent
   ],
   imports: [
@@ -27,7 +26,8 @@ import { UserDashboardComponent } from './components/user/user-dashboard/user-da
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ProfilComponent
+    ProfileComponent,
+    AdminNavbarComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
