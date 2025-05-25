@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/v1/user")
@@ -61,5 +62,12 @@ public class UserController {
     public ResponseEntity<Void> deleteUserById(@PathVariable String id) {
         userService.deleteUserById(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/profile")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<UserDto> getProfile(Principal principal) {
+        String username = principal.getName(); // extracted from token
+        return ResponseEntity.ok(modelMapper.map(userService.getUserByUsername(username), UserDto.class));
     }
 }
