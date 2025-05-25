@@ -32,7 +32,7 @@ export class UserListComponent implements OnInit {
     }
   }
 
-  deleteUser(id: number | undefined): void {
+  deleteUser(id: string | undefined): void {
     if (id === undefined) {
       console.error('Cannot delete user: ID is undefined.');
       return;

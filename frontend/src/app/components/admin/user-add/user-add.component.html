@@ -21,14 +21,6 @@
       </div>
     </div>
 
-    <div class="mb-3">
-      <label for="role" class="form-label">Role</label>
-      <select id="role" class="form-select" formControlName="role">
-        <option value="USER">USER</option>
-        <option value="ADMIN">ADMIN</option>
-      </select>
-    </div>
-
     <div class="mb-3" *ngIf="!userId">
       <label for="password" class="form-label">Password</label>
       <input id="password" type="password" class="form-control" formControlName="password" />

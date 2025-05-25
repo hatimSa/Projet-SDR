@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/services/services/user.service';
 
 @Component({
@@ -8,7 +8,6 @@ import { UserService } from 'src/app/services/services/user.service';
   templateUrl: './user-edit.component.html',
   styleUrls: ['./user-edit.component.scss']
 })
-// user-edit.component.ts
 export class UserEditComponent implements OnInit {
   userForm: FormGroup;
   userId: string = '';
@@ -23,14 +22,39 @@ export class UserEditComponent implements OnInit {
       id: [''],
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      // exclude password from update unless intended
+      userDetails: this.fb.group({
+        firstName: [''],
+        lastName: [''],
+        phoneNumber: [''],
+        country: [''],
+        city: [''],
+        address: [''],
+        postalCode: [''],
+        aboutMe: [''],
+        profilePicture: ['']
+      })
     });
   }
 
   ngOnInit(): void {
     this.userId = this.route.snapshot.params['id'];
     this.userService.getUserById(this.userId).subscribe(user => {
-      this.userForm.patchValue(user);
+      this.userForm.patchValue({
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        userDetails: {
+          firstName: user.userDetails?.firstName || '',
+          lastName: user.userDetails?.lastName || '',
+          phoneNumber: user.userDetails?.phoneNumber || '',
+          country: user.userDetails?.country || '',
+          city: user.userDetails?.city || '',
+          address: user.userDetails?.address || '',
+          postalCode: user.userDetails?.postalCode || '',
+          aboutMe: user.userDetails?.aboutMe || '',
+          profilePicture: user.userDetails?.profilePicture || ''
+        }
+      });
     });
   }
 
