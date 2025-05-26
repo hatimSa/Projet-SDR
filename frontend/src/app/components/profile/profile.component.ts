@@ -12,6 +12,7 @@ import { UserService } from "../../services/services/user.service";
 export class ProfileComponent implements OnInit {
 
   profileForm: FormGroup;
+  
 
   constructor(private fb: FormBuilder, private userService: UserService) {
     this.profileForm = this.fb.group({
