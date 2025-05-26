@@ -1,37 +1,59 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-interface Role {
-  id: number;
-  name: string;
-}
+import { RoleService } from 'src/app/services/role.service';
+import { Role } from '../../../models/role.model';
 
 @Component({
   selector: 'app-role-list',
-  templateUrl: './role-list.component.html'
-  // styleUrls: ['./role-list.component.css']
+  templateUrl: './role-list.component.html',
+  styleUrls: ['./role-list.component.scss']
 })
-export class RoleListComponent {
-  roles: Role[] = [
-    { id: 1, name: 'Admin' },
-    { id: 2, name: 'User' },
-    { id: 3, name: 'Manager' }
-  ];
+export class RoleListComponent implements OnInit {
+  roles: Role[] = [];
+  errorMessage: string = '';
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private roleService: RoleService
+  ) {}
 
-   addRole() {
-    this.router.navigate(['/admin/roles/add']); // adapte l'URL selon ta route
+  ngOnInit(): void {
+    this.loadRoles();
   }
 
-  editRole(role: Role) {
-  this.router.navigate(['admin/roles/edit', role.id]);
-}
+  loadRoles(): void {
+    this.roleService.getRoles().subscribe({
+      next: (roles) => {
+        console.log(roles);
+        this.roles = roles.filter(role => role.id !== undefined) as Role[];
+      },
+      error: (err) => {
+        console.error('Error loading roles', err);
+        this.errorMessage = 'Failed to load roles';
+      }
+    });
+  }
 
+  addRole(): void {
+    this.router.navigate(['/admin/roles/add']);
+  }
 
-  deleteRole(id: number) {
-    if(confirm('Are you sure you want to delete this role?')) {
-      this.roles = this.roles.filter(role => role.id !== id);
+  editRole(role: Role): void {
+    this.router.navigate(['/admin/roles/edit', role.id]);
+  }
+
+  deleteRole(id: string): void {
+    if (confirm('Are you sure you want to delete this role?')) {
+      this.roleService.deleteRole(id).subscribe({
+        next: () => {
+          // Remove deleted role from list locally after success
+          this.roles = this.roles.filter(role => role.id !== id);
+        },
+        error: (err) => {
+          console.error('Error deleting role', err);
+          this.errorMessage = 'Failed to delete role';
+        }
+      });
     }
   }
 }

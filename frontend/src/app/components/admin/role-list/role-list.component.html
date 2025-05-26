@@ -20,7 +20,7 @@
         <td>{{ role.name }}</td>
         <td>
           <button class="btn btn-primary btn-sm mr-2" (click)="editRole(role)">Edit</button>
-          <button class="btn btn-danger btn-sm" (click)="deleteRole(role.id)">Delete</button>
+          <button *ngIf="role.id" class="btn btn-danger btn-sm" (click)="deleteRole(role.id)">Delete</button>
         </td>
       </tr>
     </tbody>
