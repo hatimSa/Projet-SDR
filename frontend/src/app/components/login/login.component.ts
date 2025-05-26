@@ -33,9 +33,8 @@ export class LoginComponent {
         next: data => {
           console.log("Connecté", data);
           this.error = null;
-          // Rediriger vers une autre page après la connexion réussie
-          this.router.navigate(['/home']);
-           // Change le chemin selon ton besoin
+
+          this.router.navigate(['/admin/users']);
         },
         error: err => {
           console.error("Erreur de connexion", err);

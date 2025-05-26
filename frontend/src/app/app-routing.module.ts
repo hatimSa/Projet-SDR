@@ -1,19 +1,45 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
-import { LoginComponent } from './pages/login/login.component';
-import { RegisterComponent } from './pages/register/register.component';
-import { RegistrationSuccessComponent } from './pages/register-success/registration-success.component';
 
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { RegistrationSuccessComponent } from './components/register-success/registration-success.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { UserDashboardComponent } from './components/user/user-dashboard/user-dashboard.component';
 
-
+import { UserListComponent } from './components/admin/user-list/user-list.component';
+import { UserAddComponent } from './components/admin/user-add/user-add.component';
+import { UserEditComponent } from './components/admin/user-edit/user-edit.component';
+import { DashboardAdminComponent } from './components/admin/dashboard-admin/dashboard-admin.component';
+import { RoleListComponent } from './components/admin/role-list/role-list.component';
+import { RoleAddComponent } from './components/admin/role-add/role-add.component';
+import { RoleEditComponent } from './components/admin/role-edit/role-edit.component';
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },  // redirection racine vers home
+
+  // Routes publiques
+  { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'register-success', component: RegistrationSuccessComponent },
-  { path: 'home', component: HomeComponent },  // Assurez-vous que cette ligne existe
-  { path: '**', redirectTo: 'login' }  // Route de secours
+  { path: 'admin-dashboard', component: DashboardAdminComponent },
+  // Routes utilisateur
+  { path: 'profile', component: ProfileComponent },
+  { path: 'user-dashboard', component: UserDashboardComponent },
+
+  { path: 'admin/users', component: UserListComponent },
+  { path: 'admin/users/add', component: UserAddComponent },
+  { path: 'admin/users/edit/:id', component: UserEditComponent },
+  { path: 'admin/profile', component: ProfileComponent },
+
+  {path:'admin/roles',component:RoleListComponent},
+  {path:'admin/roles/add',component:RoleAddComponent},
+  {path: 'admin/roles/edit/:id', component: RoleEditComponent },
+
+
+  // Route wildcard pour rediriger les URL inconnues vers home
+  { path: '**', redirectTo: 'home' }
 ];
 
 @NgModule({

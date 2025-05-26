@@ -1,0 +1,48 @@
+<nav class="navbar navbar-dark bg-dark sidebar d-flex flex-column p-3">
+  <a class="navbar-brand d-flex align-items-center mb-4" routerLink="/admin-dashboard">
+    <i class="bi bi-mortarboard-fill fs-3 me-2"></i>
+    <span class="d-none d-lg-inline">Dashboard Admin</span>
+  </a>
+
+  <ul class="nav nav-pills flex-column mb-auto w-100">
+    <li>
+      <a routerLink="/admin/users" routerLinkActive="active" class="nav-link text-white">
+        <i class="bi bi-people me-2"></i>
+        Gestion User
+      </a>
+    </li>
+    <li>
+      <a routerLink="/admin/roles" routerLinkActive="active" class="nav-link text-white">
+        <i class="bi bi-shield-lock me-2"></i>
+        Gestion Role
+      </a>
+    </li>
+    <li>
+      <a routerLink="/admin/Affecter" routerLinkActive="active" class="nav-link text-white">
+        <i class="bi bi-shield-lock me-2"></i>
+        Affecter Role A un Service
+      </a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="/admin/profile" routerLinkActive="active" class="nav-link text-white">
+        <i class="bi bi-person-check me-2"></i>
+        Profile
+      </a>
+    </li>
+  </ul>
+
+  <div class="dropdown mt-auto">
+    <ul class="dropdown-menu dropdown-menu-dark w-100">
+        <li>
+        <a class="dropdown-item" routerLink="/profil">
+          <i class="bi bi-box-arrow-right me-2"></i> Profil
+        </a>
+      </li>
+      <li>
+        <a class="dropdown-item" routerLink="/logout">
+          <i class="bi bi-box-arrow-right me-2"></i> Déconnexion
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>

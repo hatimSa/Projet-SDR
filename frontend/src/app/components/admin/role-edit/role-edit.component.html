@@ -1,0 +1,19 @@
+<div class="container mt-5 role-form-container">
+  <h2>{{ roleId ? 'Edit Role' : 'Add New Role' }}</h2>
+
+  <form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
+
+    <div class="mb-3">
+      <label for="roleName" class="form-label">Role Name</label>
+      <input id="roleName" class="form-control" formControlName="name" />
+      <div *ngIf="roleForm.get('name')?.invalid && roleForm.get('name')?.touched" class="text-danger">
+        Role name is required.
+      </div>
+    </div>
+
+    <button class="btn btn-primary" type="submit" [disabled]="roleForm.invalid">
+      {{ roleId ? 'Update' : 'Create' }} Role
+    </button>
+    <button class="btn btn-secondary ms-2" type="button" (click)="onCancel()">Cancel</button>
+  </form>
+</div>

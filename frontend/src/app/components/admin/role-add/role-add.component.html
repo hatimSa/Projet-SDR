@@ -1,0 +1,25 @@
+<div class="container mt-5 role-form-container shadow p-4 rounded bg-light">
+  <h2 class="text-center mb-4 text-primary">Add New Role</h2>
+
+  <form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
+    <!-- Role Name -->
+    <div class="mb-3">
+      <label for="roleName" class="form-label fw-bold">Role Name</label>
+      <input id="roleName" class="form-control" formControlName="name" placeholder="Enter role name" />
+      <div *ngIf="roleForm.get('name')?.invalid && roleForm.get('name')?.touched" class="text-danger small mt-1">
+        Role name is required.
+      </div>
+      <div *ngIf="errorMessages?.name" class="text-danger small mt-1">
+        {{ errorMessages.name }}
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-secondary me-2" type="button" (click)="onCancel()">Cancel</button>
+      <button class="btn btn-primary" type="submit" [disabled]="roleForm.invalid">
+        Create Role
+      </button>
+    </div>
+  </form>
+</div>

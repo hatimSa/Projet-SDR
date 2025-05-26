@@ -23,6 +23,9 @@ public class GatewayConfig {
 
                 .route("auth-service", r -> r.path("/v1/auth/**")
                         .uri("lb://auth-service"))
+                .route("role-service", r -> r.path("/v1/role/**")
+                        .filters(f -> f.filter(filter))
+                        .uri("lb://role-service"))
 
                 .build();
     }

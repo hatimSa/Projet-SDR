@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import {AuthResponse} from "../../models/auth-response.model";
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -10,9 +11,12 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(credentials: { username: string, password: string }): Observable<any> {
-    return this.http.post(`${this.baseUrl}/v1/auth/login`, credentials).pipe(
+    return this.http.post<AuthResponse>(`${this.baseUrl}/v1/auth/login`, credentials).pipe(
       tap(response => {
         console.log('Réponse du serveur (login) :', response); // Affichage de la réponse du serveur dans la console
+        if (response.token) {
+          localStorage.setItem('token', response.token);
+        }
       }),
       catchError(this.handleError)
     );
