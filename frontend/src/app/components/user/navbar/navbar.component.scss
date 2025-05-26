@@ -9,3 +9,14 @@
   color: white;
   z-index: 1000;
 }
+
+.layout {
+  display: flex;
+  height: 100vh;
+}
+.main-content {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+}
+

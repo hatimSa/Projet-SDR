@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators,ReactiveFormsModule  } from "@angular/forms";
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/services/services/user.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-user-edit',
   templateUrl: './user-edit.component.html',
-  styleUrls: ['./user-edit.component.scss']
+  styleUrls: ['./user-edit.component.scss'],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule]  // <-- ajoute CommonModule ici
 })
 export class UserEditComponent implements OnInit {
   userForm: FormGroup;
