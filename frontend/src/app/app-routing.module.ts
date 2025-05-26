@@ -12,7 +12,9 @@ import { UserListComponent } from './components/admin/user-list/user-list.compon
 import { UserAddComponent } from './components/admin/user-add/user-add.component';
 import { UserEditComponent } from './components/admin/user-edit/user-edit.component';
 import { DashboardAdminComponent } from './components/admin/dashboard-admin/dashboard-admin.component';
-
+import { RoleListComponent } from './components/admin/role-list/role-list.component';
+import { RoleAddComponent } from './components/admin/role-add/role-add.component';
+import { RoleEditComponent } from './components/admin/role-edit/role-edit.component';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },  // redirection racine vers home
 
@@ -30,6 +32,11 @@ const routes: Routes = [
   { path: 'admin/users/add', component: UserAddComponent },
   { path: 'admin/users/edit/:id', component: UserEditComponent },
   { path: 'admin/profile', component: ProfileComponent },
+
+  {path:'admin/roles',component:RoleListComponent},
+  {path:'admin/roles/add',component:RoleAddComponent},
+  {path: 'admin/roles/edit/:id', component: RoleEditComponent },
+
 
   // Route wildcard pour rediriger les URL inconnues vers home
   { path: '**', redirectTo: 'home' }
