@@ -11,11 +11,6 @@
       </div>
     </div>
 
-    <div class="mb-3">
-      <label for="description" class="form-label">Description</label>
-      <textarea id="description" class="form-control" formControlName="description"></textarea>
-    </div>
-
     <button class="btn btn-primary" type="submit" [disabled]="roleForm.invalid">
       {{ roleId ? 'Update' : 'Create' }} Role
     </button>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { RoleService } from 'src/app/services/role.service';
 
 @Component({
   selector: 'app-role-edit',
@@ -9,49 +10,74 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class RoleEditComponent implements OnInit {
   roleForm!: FormGroup;
-  roleId?: number;
+  roleId!: string;
+  isEditMode = false;
+  errorMessages: any = {};
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    public router: Router
+    private router: Router,
+    private roleService: RoleService
   ) {}
 
   ngOnInit(): void {
-    // Récupérer id dans url
-    this.roleId = +this.route.snapshot.paramMap.get('id')!;
-
-    // Initialiser formulaire
     this.roleForm = this.fb.group({
       name: ['', Validators.required],
-      description: ['']
     });
 
-    // Simuler chargement des données si édition
-    if (this.roleId) {
-      // Ici tu récupères le role via API ou service
-      // Exemple statique :
-      const roleFromServer = { name: 'Admin', description: 'Role with all permissions' };
+    this.roleId = this.route.snapshot.paramMap.get('id')!;
+    this.isEditMode = !!this.roleId;
 
-      this.roleForm.patchValue(roleFromServer);
+    if (this.isEditMode) {
+      this.loadRole(this.roleId);
     }
   }
 
-  onSubmit() {
-    if (this.roleForm.invalid) return;
+  loadRole(id: string): void {
+    this.roleService.getRoleById(id).subscribe({
+      next: (role) => {
+        if (role) {
+          this.roleForm.patchValue(role);
+        } else {
+          this.errorMessages.load = 'Role not found.';
+        }
+      },
+      error: (err) => {
+        console.error('Error loading role:', err);
+        this.errorMessages.load = 'Unable to load role details.';
+      }
+    });
+  }
 
-    if (this.roleId) {
-      console.log('Update role', this.roleId, this.roleForm.value);
-      // Appel API update ici
+  onSubmit(): void {
+    if (this.roleForm.invalid) {
+      this.roleForm.markAllAsTouched();
+      return;
+    }
+
+    const roleData = this.roleForm.value;
+
+    if (this.isEditMode) {
+      this.roleService.updateRole(this.roleId, roleData).subscribe({
+        next: () => this.router.navigate(['/admin/roles']),
+        error: (err) => {
+          console.error('Error updating role:', err);
+          this.errorMessages.submit = 'Failed to update role.';
+        }
+      });
     } else {
-      console.log('Create role', this.roleForm.value);
-      // Appel API création ici
+      this.roleService.addRole(roleData).subscribe({
+        next: () => this.router.navigate(['/admin/roles']),
+        error: (err) => {
+          console.error('Error creating role:', err);
+          this.errorMessages.submit = 'Failed to create role.';
+        }
+      });
     }
-
-    this.router.navigate(['/admin/roles']);
   }
 
-  onCancel() {
+  onCancel(): void {
     this.router.navigate(['/admin/roles']);
   }
 }
