@@ -24,7 +24,9 @@ export class UserAddComponent {
     this.userForm = this.fb.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      role: ['', Validators.required],
+      active: ['', Validators.required]
     });
     console.log(this.userForm); // Vérifier la création du formulaire
   }
