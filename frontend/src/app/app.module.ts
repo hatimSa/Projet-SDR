@@ -22,6 +22,9 @@ import { UserNavbarComponent } from './components/user/navbar/navbar.component';
 import { UserAddComponent } from './components/admin/user-add/user-add.component';
 import { UserEditComponent } from './components/admin/user-edit/user-edit.component';
 import { DashboardAdminComponent } from './components/admin/dashboard-admin/dashboard-admin.component';
+import { RoleListComponent } from './components/admin/role-list/role-list.component';
+import { RoleAddComponent } from './components/admin/role-add/role-add.component';
+import { RoleEditComponent } from './components/admin/role-edit/role-edit.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,10 @@ import { DashboardAdminComponent } from './components/admin/dashboard-admin/dash
     RegistrationSuccessComponent,
     UserDashboardComponent,
     UserListComponent,
-    DashboardAdminComponent
+    DashboardAdminComponent,
+    RoleListComponent,
+    RoleAddComponent,
+    RoleEditComponent
   ],
   imports: [
     BrowserModule,
