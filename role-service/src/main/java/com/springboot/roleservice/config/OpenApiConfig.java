@@ -1,4 +1,4 @@
-package com.springboot.userservice.config;
+package com.springboot.roleservice.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;

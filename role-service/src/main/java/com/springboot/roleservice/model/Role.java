@@ -1,6 +1,8 @@
 package com.springboot.roleservice.model;
 
-import jakarta.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
 import lombok.*;
 
 @Entity

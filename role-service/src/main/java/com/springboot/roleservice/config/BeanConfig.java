@@ -1,4 +1,4 @@
-package com.springboot.userservice.config;
+package com.springboot.roleservice.config;
 
 
 import org.modelmapper.Conditions;

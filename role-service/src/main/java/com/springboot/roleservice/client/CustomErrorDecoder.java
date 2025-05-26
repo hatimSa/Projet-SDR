@@ -1,7 +1,7 @@
-package com.springboot.userservice.client;
+package com.springboot.roleservice.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.springboot.userservice.exc.GenericErrorResponse;
+import com.springboot.roleservice.exc.GenericErrorResponse;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 import org.apache.commons.io.IOUtils;

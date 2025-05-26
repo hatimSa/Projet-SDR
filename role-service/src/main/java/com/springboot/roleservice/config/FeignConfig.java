@@ -1,6 +1,6 @@
-package com.springboot.userservice.config;
+package com.springboot.roleservice.config;
 
-import com.springboot.userservice.client.CustomErrorDecoder;
+import com.springboot.roleservice.client.CustomErrorDecoder;
 import feign.codec.ErrorDecoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

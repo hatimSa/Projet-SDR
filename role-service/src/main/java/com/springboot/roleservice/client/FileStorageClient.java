@@ -1,4 +1,4 @@
-package com.springboot.userservice.client;
+package com.springboot.roleservice.client;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
