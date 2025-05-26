@@ -19,8 +19,15 @@ export class UserListComponent implements OnInit {
   }
 
   loadUsers(): void {
-    this.userService.getUsers().subscribe(users => this.users = users);
-  }
+  this.userService.getUsers().subscribe({
+    next: users => this.users = users,
+    error: err => {
+      console.error('Erreur chargement users', err);
+      alert('Erreur lors du chargement des utilisateurs');
+    }
+  });
+}
+
 
   addUser(): void {
     this.router.navigate(['/admin/users/add']);

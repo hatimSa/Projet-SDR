@@ -21,6 +21,7 @@ import { AdminNavbarComponent } from './components/admin/navbar/navbar.component
 import { UserNavbarComponent } from './components/user/navbar/navbar.component';
 import { UserAddComponent } from './components/admin/user-add/user-add.component';
 import { UserEditComponent } from './components/admin/user-edit/user-edit.component';
+import { DashboardAdminComponent } from './components/admin/dashboard-admin/dashboard-admin.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { UserEditComponent } from './components/admin/user-edit/user-edit.compon
     RegisterComponent,
     RegistrationSuccessComponent,
     UserDashboardComponent,
-    UserListComponent
+    UserListComponent,
+    DashboardAdminComponent
   ],
   imports: [
     BrowserModule,

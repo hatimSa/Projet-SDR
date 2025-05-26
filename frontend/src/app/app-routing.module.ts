@@ -11,6 +11,7 @@ import { UserDashboardComponent } from './components/user/user-dashboard/user-da
 import { UserListComponent } from './components/admin/user-list/user-list.component';
 import { UserAddComponent } from './components/admin/user-add/user-add.component';
 import { UserEditComponent } from './components/admin/user-edit/user-edit.component';
+import { DashboardAdminComponent } from './components/admin/dashboard-admin/dashboard-admin.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },  // redirection racine vers home
@@ -20,7 +21,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'register-success', component: RegistrationSuccessComponent },
-
+  { path: 'admin-dashboard', component: DashboardAdminComponent },
   // Routes utilisateur
   { path: 'profile', component: ProfileComponent },
   { path: 'user-dashboard', component: UserDashboardComponent },
