@@ -1,0 +1,18 @@
+.stat-card {
+  border: none;
+  border-radius: 15px;
+  transition: transform 0.3s ease;
+  margin-bottom: 1rem;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+.welcome-section {
+  background: linear-gradient(to right, #2980b9, #2c3e50);
+  color: white;
+  padding: 2rem;
+  border-radius: 15px;
+  margin-bottom: 2rem;
+}
