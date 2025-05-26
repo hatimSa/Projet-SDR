@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/services/user.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-user-add',
+  standalone: true,
+  imports: [ReactiveFormsModule,CommonModule],
   templateUrl: './user-add.component.html',
-  styleUrls: ['./user-add.component.scss']
+  styleUrls: ['./user-add.component.scss'],
 })
-// user-add.component.ts
 export class UserAddComponent {
   userForm: FormGroup;
   userId: string = '';
@@ -24,6 +26,7 @@ export class UserAddComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
+    console.log(this.userForm); // Vérifier la création du formulaire
   }
 
   onSubmit(): void {
