@@ -1,5 +1,5 @@
 <div class="container mt-5 role-form-container shadow p-4 rounded bg-light">
-  <h2 class="text-center mb-4 text-primary">{{ roleId ? 'Edit Role' : 'Add New Role' }}</h2>
+  <h2 class="text-center mb-4 text-primary">Add New Role</h2>
 
   <form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
     <!-- Role Name -->
@@ -14,23 +14,11 @@
       </div>
     </div>
 
-    <!-- Description -->
-    <div class="mb-3">
-      <label for="description" class="form-label fw-bold">Description</label>
-      <textarea
-        id="description"
-        class="form-control"
-        formControlName="description"
-        rows="3"
-        placeholder="Optional description for this role"
-      ></textarea>
-    </div>
-
     <!-- Buttons -->
     <div class="d-flex justify-content-end">
       <button class="btn btn-secondary me-2" type="button" (click)="onCancel()">Cancel</button>
       <button class="btn btn-primary" type="submit" [disabled]="roleForm.invalid">
-        {{ roleId ? 'Update' : 'Create' }} Role
+        Create Role
       </button>
     </div>
   </form>
