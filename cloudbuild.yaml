@@ -1,0 +1,118 @@
+steps:
+  # Maven build: config-server
+  - name: 'gcr.io/cloud-builders/mvn'
+    dir: 'config-server'
+    args: [ 'clean', 'package', '-DskipTests' ]
+
+  # Maven build: eureka-server
+  - name: 'gcr.io/cloud-builders/mvn'
+    dir: 'eureka-server'
+    args: [ 'clean', 'package', '-DskipTests' ]
+
+  # Maven build: gateway
+  - name: 'gcr.io/cloud-builders/mvn'
+    dir: 'gateway'
+    args: [ 'clean', 'package', '-DskipTests' ]
+
+  # Maven build: user-service
+  - name: 'gcr.io/cloud-builders/mvn'
+    dir: 'user-service'
+    args: [ 'clean', 'package', '-DskipTests' ]
+
+  # Maven build: auth-service
+  - name: 'gcr.io/cloud-builders/mvn'
+    dir: 'auth-service'
+    args: [ 'clean', 'package', '-DskipTests' ]
+
+  # Maven build: role-service
+  - name: 'gcr.io/cloud-builders/mvn'
+    dir: 'role-service'
+    args: [ 'clean', 'package', '-DskipTests' ]
+
+  # Build and push frontend
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/frontend:latest', './frontend' ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'push', 'gcr.io/$PROJECT_ID/frontend:latest' ]
+
+  # Build and push config-server
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/config-server:latest', './config-server' ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'push', 'gcr.io/$PROJECT_ID/config-server:latest' ]
+
+  # Build and push eureka-server
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/eureka-server:latest', './eureka-server' ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'push', 'gcr.io/$PROJECT_ID/eureka-server:latest' ]
+
+  # Build and push gateway image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/gateway:latest', './gateway']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/gateway:latest']
+
+  # Build and push user-service image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/user-service:latest', './user-service']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/user-service:latest']
+
+  # Build and push auth-service image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/auth-service:latest', './auth-service']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/auth-service:latest']
+
+  # Build and push role-service image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/role-service:latest', './role-service']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/role-service:latest']
+
+  # Get GKE credentials
+  - name: 'gcr.io/cloud-builders/gcloud'
+    id: 'Get GKE credentials'
+    entrypoint: 'bash'
+    env:
+      - 'KUBECONFIG=/workspace/.kube/config'
+    args:
+      - '-c'
+      - |
+        mkdir -p /workspace/.kube
+        gcloud container clusters get-credentials ${_CLOUDSDK_CONTAINER_CLUSTER} \
+          --region=${_CLOUDSDK_COMPUTE_REGION} \
+          --project=$PROJECT_ID
+    volumes:
+      - name: kube
+        path: /workspace/.kube
+
+  # Deploy to GKE all k8s manifests in /k8s using kustomize
+  - name: 'gcr.io/cloud-builders/kubectl'
+    id: 'Deploy to GKE'
+    args:
+      - 'apply'
+      - '-k'
+      - 'k8s'
+    env:
+      - 'KUBECONFIG=/workspace/.kube/config'
+      - 'CLOUDSDK_COMPUTE_REGION=${_CLOUDSDK_COMPUTE_REGION}'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=${_CLOUDSDK_CONTAINER_CLUSTER}'
+    volumes:
+      - name: kube
+        path: /workspace/.kube
+
+  # Get Gateway external IP and inject it into Angular's config.json
+  - name: 'gcr.io/cloud-builders/kubectl'
+    entrypoint: 'bash'
+    args:
+      - 'scripts/inject-config.sh'
+      - '${_CLOUDSDK_CONTAINER_CLUSTER}'
+      - '${_CLOUDSDK_COMPUTE_REGION}'
+
+substitutions:
+  _CLOUDSDK_CONTAINER_CLUSTER: 'springboot-cluster'
+  _CLOUDSDK_COMPUTE_REGION: 'us-central1'
+
+timeout: 900s
