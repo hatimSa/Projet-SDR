@@ -59,7 +59,7 @@ export class RoleEditComponent implements OnInit {
     const roleData = this.roleForm.value;
 
     if (this.isEditMode) {
-      this.roleService.updateRole(this.roleId, roleData).subscribe({
+      this.roleService.updateRole(this.roleId, roleData ).subscribe({
         next: () => this.router.navigate(['/admin/roles']),
         error: (err) => {
           console.error('Error updating role:', err);
