@@ -1,0 +1,12 @@
+.gcloudignore
+.git
+.idea
+.gitignore
+node_modules
+*.log
+*.tmp
+*.md
+tests/
+coverage/
+target/
+node_modules/
