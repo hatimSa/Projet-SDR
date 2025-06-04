@@ -1,8 +1,22 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'; // Importation de la fonction pour démarrer l'application Angular
-import { AppModule } from './app/app.module'; // Importation du module principal de l'application
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { AppModule } from './app/app.module';
 
-// Démarrage de l'application Angular en utilisant le module principal 'AppModule'
-platformBrowserDynamic().bootstrapModule(AppModule)
+// Load configuration before bootstrapping Angular
+fetch('/assets/config/config.json')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(config => {
+    // Save config to a global variable (e.g., window object)
+    (window as any).appConfig = config;
+
+    // Now bootstrap the application
+    platformBrowserDynamic().bootstrapModule(AppModule)
+      .catch(err => console.error('Erreur lors de l\'initialisation de l\'application:', err));
+  })
   .catch(err => {
-    console.error('Erreur lors de l\'initialisation de l\'application:', err);
+    console.error('Erreur lors du chargement de la configuration:', err);
   });

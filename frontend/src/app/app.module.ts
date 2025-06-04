@@ -1,11 +1,14 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser'; // pour le DOM
 import { RouterModule } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AppConfig } from './app.config';
+import { environment } from '../environments/environment';
 
 // Composants classiques (non standalone)
 import { HomeComponent } from './components/home/home.component';
@@ -47,10 +50,10 @@ import { RoleEditComponent } from './components/admin/role-edit/role-edit.compon
     RouterModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ProfileComponent,       // standalone
-    AdminNavbarComponent,   // standalone    // standalone
-    UserAddComponent,       // standalone
-    UserEditComponent       // standalone
+    ProfileComponent,
+    AdminNavbarComponent,
+    UserAddComponent,
+    UserEditComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
