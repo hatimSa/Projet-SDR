@@ -7,9 +7,15 @@ import { User } from "src/app/models/user.model";
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-  private baseUrl = 'http://localhost:8080/v1/user';
+  private baseUrl: string;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    const config = (window as any).appConfig;
+    if (!config?.apiBaseUrl) {
+      throw new Error('API URL not found in appConfig');
+    }
+    this.baseUrl = `${config.apiBaseUrl}/v1/user`;
+  }
 
   private getAuthHeaders(): HttpHeaders | null {
     const token = localStorage.getItem('token');

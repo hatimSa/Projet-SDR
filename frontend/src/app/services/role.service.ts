@@ -1,40 +1,75 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Role } from '../models/role.model'; // Corrige le chemin si nécessaire
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { Role } from '../models/role.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoleService {
-  private apiUrl = 'http://localhost:8080/api/roles'; // Change l'URL selon ton backend
+  private baseUrl: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    const config = (window as any).appConfig;
+    if (!config?.apiBaseUrl) {
+      throw new Error('API URL not found in appConfig');
+    }
+    this.baseUrl = `${config.apiBaseUrl}/v1/role`;
+  }
 
-  // 1. Récupérer la liste des rôles
+  private getAuthHeaders(): HttpHeaders | null {
+    const token = localStorage.getItem('token');
+    if (!token) return null;
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+  }
+
   getRoles(): Observable<Role[]> {
-    return this.http.get<Role[]>(this.apiUrl);
+    const headers = this.getAuthHeaders();
+    if (!headers) return of([]);
+    return this.http.get<Role[]>(`${this.baseUrl}/getAll`, { headers }).pipe(
+      catchError(() => of([]))
+    );
   }
 
-  // 2. Supprimer un rôle par ID
-  deleteRole(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  getRoleById(id: string): Observable<Role | null> {
+    const headers = this.getAuthHeaders();
+    if (!headers) return of(null);
+    return this.http.get<Role>(`${this.baseUrl}/${id}`, { headers }).pipe(
+      catchError(() => of(null))
+    );
   }
 
-  // BONUS : pour les autres actions que tu pourrais faire ensuite
-
-  // Ajouter un rôle
-  addRole(role: Role): Observable<Role> {
-    return this.http.post<Role>(this.apiUrl, role);
+  addRole(role: Role): Observable<Role | null> {
+    const headers = this.getAuthHeaders();
+    if (!headers) return of(null);
+    return this.http.post<Role>(`${this.baseUrl}/save`, role, { headers }).pipe(
+      catchError(() => of(null))
+    );
   }
 
-  // Récupérer un rôle par ID
-  getRoleById(id: string): Observable<Role> {
-    return this.http.get<Role>(`${this.apiUrl}/${id}`);
+  updateRole(id: string, role: Role): Observable<Role | null> {
+    const headers = this.getAuthHeaders();
+    if (!headers) return of(null);
+    return this.http.put<Role>(`${this.baseUrl}/${id}`, role, { headers }).pipe(
+      catchError(() => of(null))
+    );
   }
 
-  // Mettre à jour un rôle
-  updateRole(id: string, roleData: Partial<Role>): Observable<Role> {
-    return this.http.put<Role>(`${this.apiUrl}/${id}`, roleData);
+  deleteRole(id: string): Observable<boolean> {
+    const headers = this.getAuthHeaders();
+    if (!headers) return of(false);
+    return this.http.delete(`${this.baseUrl}/${id}`, { headers }).pipe(
+      catchError(() => of(false)),
+      // Map response to true on success
+      map(() => true)
+    );
+  }
+
+  userHasRole(userRoles: string[], roleName: string): boolean {
+    return userRoles.includes(roleName);
   }
 }

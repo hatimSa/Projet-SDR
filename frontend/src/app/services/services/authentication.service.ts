@@ -6,9 +6,15 @@ import {AuthResponse} from "../../models/auth-response.model";
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private baseUrl = 'http://localhost:8080'; // base URL
+  private baseUrl: string;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    const config = (window as any).appConfig;
+    if (!config?.apiBaseUrl) {
+      throw new Error('API URL not found in appConfig');
+    }
+    this.baseUrl = config.apiBaseUrl;
+  }
 
   login(credentials: { username: string, password: string }): Observable<any> {
     return this.http.post<AuthResponse>(`${this.baseUrl}/v1/auth/login`, credentials).pipe(

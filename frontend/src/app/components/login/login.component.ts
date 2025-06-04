@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/services/authentication.service'; // ajuste le chemin si besoin
 import { HttpClient } from '@angular/common/http'; // Importer HttpClient si nécessaire
-import { Router } from '@angular/router'; // Pour la redirection
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -30,11 +30,20 @@ export class LoginComponent {
 
       // Appeler la méthode login du service AuthService
       this.authService.login({ username, password }).subscribe({
-        next: data => {
-          console.log("Connecté", data);
-          this.error = null;
+        next: (response) => {
+          const token = response.token;
+          localStorage.setItem('token', token);
 
-          this.router.navigate(['/admin/users']);
+          // const role = this.tokenUtils.getRoleFromToken(token); Fix it
+          const role = "ADMIN"
+
+          if (role === 'ADMIN') {
+            this.router.navigate(['/admin/users']);
+          } else if (role === 'USER') {
+            this.router.navigate(['/user/home']);
+          } else {
+            this.router.navigate(['/unauthorized']);
+          }
         },
         error: err => {
           console.error("Erreur de connexion", err);
