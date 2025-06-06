@@ -17,3 +17,15 @@ spec:
           image: gcr.io/springboot-461122/gateway:latest
           ports:
             - containerPort: 8080
+          env:
+            - name: SPRING_APPLICATION_JSON
+              value: >
+                {
+                  "eureka": {
+                    "client": {
+                      "serviceUrl": {
+                        "defaultZone": "http://eureka-server:8761/eureka/"
+                      }
+                    }
+                  }
+                }
