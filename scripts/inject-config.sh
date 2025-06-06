@@ -9,3 +9,5 @@ echo "Gateway IP: $GATEWAY_IP"
 
 echo "Creating frontend config map..."
 kubectl create configmap frontend-config --from-literal=config.json="{\"apiBaseUrl\": \"http://$GATEWAY_IP\"}" --dry-run=client -o yaml | kubectl apply -f -
+
+kubectl rollout restart deployment/frontend
