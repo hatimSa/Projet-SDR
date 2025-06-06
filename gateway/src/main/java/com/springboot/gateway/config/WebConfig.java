@@ -5,14 +5,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.CorsWebFilter;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
+import org.springframework.beans.factory.annotation.Value;
 
 @Configuration
 public class WebConfig {
+    @Value("${APP_FRONTEND_ORIGIN:http://localhost:4200}")
+    private String frontendOrigin;
+
     @Bean
     public CorsWebFilter corsWebFilter() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:4200"); // your Angular frontend
+        config.addAllowedOrigin(frontendOrigin); // your Angular frontend
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
 
